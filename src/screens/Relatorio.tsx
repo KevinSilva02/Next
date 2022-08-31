@@ -1,4 +1,4 @@
-import { useNavigation } from '@react-navigation/native';
+import { useNavigation, useRoute } from '@react-navigation/native';
 import { VStack, HStack, FlatList, Center, Text, useTheme } from 'native-base';
 import { useEffect, useState } from 'react';
 
@@ -11,6 +11,9 @@ import { Loading } from '../components/Loading';
 import { ChatTeardropText } from 'phosphor-react-native';
 import { ReservaProps, Reservas } from '../components/Reservas';
 
+type RouteParams = {
+  eventoId: string;
+}
 
 export function Relatorio() {
 
@@ -18,12 +21,16 @@ export function Relatorio() {
   const [reserva, setReserva] = useState<ReservaProps[]>([]);
   const { colors } = useTheme();
   const navigation = useNavigation();
+  const routes = useRoute();
+
+  const { eventoId } = routes.params as RouteParams;
 
   useEffect(()=> {
     setIsLoading(true);
 
     const subscriber = firestone().
     collection('Reserva')
+    .where('eventoId', '==', eventoId)
     .onSnapshot(snapshot=>{
       const data = snapshot.docs.map(doc => {
         const { name, telefone } = doc.data();

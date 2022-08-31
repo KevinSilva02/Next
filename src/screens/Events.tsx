@@ -31,8 +31,12 @@ export function Events() {
     navigation.navigate('newEvent')
   }
   function handleRelatorio(){
-    navigation.navigate('Relatorio');
-}
+    navigation.navigate('eventoRelatorio');
+  }
+  function handleEventoDetails(eventoId: string){
+    navigation.navigate('eventoDetails', {eventoId});
+  }
+
 
   useEffect(() => {
     setIsLoading(true);
@@ -87,7 +91,7 @@ export function Events() {
             <FlatList
               data={event}
               keyExtractor={item => item.id}
-              renderItem={({item}) => <Event data={item} />}
+              renderItem={({item}) => <Event data={item} onPress={()=>handleEventoDetails(item.id)} />}
               showsVerticalScrollIndicator={false}
               contentContainerStyle={{paddingBottom: 100}}
               ListEmptyComponent={()=> (

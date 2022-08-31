@@ -16,9 +16,7 @@ export function Event({data, ...rest}:Props) {
   const { colors } = useTheme();
   const navigation = useNavigation();
 
-  function handleReserva(){
-    navigation.navigate('newReserva')
-  }
+  
 
   return (
     <Pressable {...rest} >
@@ -30,7 +28,7 @@ export function Event({data, ...rest}:Props) {
             <Text>
               {data.date}
             </Text>
-            <Button title='reservar' onPress={handleReserva}  />
+            
         </HStack>
     </VStack>
     </Pressable>
