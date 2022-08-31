@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "120073886615",
+    "project_id": "next-6f144",
+    "storage_bucket": "next-6f144.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:120073886615:android:afa5ab8bff8b07b65bc2d2",
+        "android_client_info": {
+          "package_name": "com.next"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "120073886615-b04nrdhmooktk5tuecv80203aiklah14.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCjV4OpFoqCo9k25jcdk9okyK4lIiwGnWA"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "120073886615-b04nrdhmooktk5tuecv80203aiklah14.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
