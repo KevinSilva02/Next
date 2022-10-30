@@ -22,19 +22,19 @@ export function HeaderLar({data, ...rest}) {
   return (
     <VStack>
       <Text>
-        {data.title}
+        Nome Lar: {data.title}
       </Text>
       <Text>
-        {data.nameAnfitriao}
+        Nome anfitriao: {data.nameAnfitriao}
       </Text>
       <Text>
-        {data.endereco}
+        Endereco: {data.endereco}
       </Text>
       <Text>
-        {data.nameLider}
+        Nome Lider: {data.nameLider}
       </Text>
       <Text>
-        {data.nameVice}
+        Nome Vice: {data.nameVice}
       </Text>
     </VStack>
   );

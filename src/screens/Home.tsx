@@ -71,8 +71,12 @@ export function Home() {
         navigation.navigate('meuLar', { usersId });
     }
 
-    function handleEvent(usersId: string){
+    function handleLaresSalvacao(usersId: string){
         navigation.navigate('larSalvacao', { usersId });
+    }
+
+    function handleRelatorio(title: string, usersId: string ){
+        navigation.navigate('relatorio', {title, usersId});
     }
 
     return (
@@ -101,7 +105,7 @@ export function Home() {
                   data={user}
                   keyExtractor={item => item.id}
                   renderItem={({item}) => <Card data={item} title='Lares de Salvacao'
-                  onPress={()=> handleEvent(item.id)}
+                  onPress={()=> handleLaresSalvacao(item.id)}
                   mt={10}/>}
                   showsVerticalScrollIndicator={false}
                   contentContainerStyle={{paddingBottom: 100}}
@@ -114,6 +118,18 @@ export function Home() {
                   mt={10}/>}
                   showsVerticalScrollIndicator={false}
                   contentContainerStyle={{paddingBottom: 100}}
+                />
+            
+        </HStack>
+        <HStack>
+            <FlatList
+                data={user}
+                keyExtractor={item => item.id}
+                renderItem={({item}) => <Card data={item} title='Relatórios'
+                onPress={()=> handleRelatorio(item.lar,item.id)}
+                mt={10}/>}
+                showsVerticalScrollIndicator={false}
+                contentContainerStyle={{paddingBottom: 100}}
                 />
         </HStack>
     </VStack>

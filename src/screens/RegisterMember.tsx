@@ -8,6 +8,7 @@ import { Button } from '../components/Button';
 
 import { useNavigation } from '@react-navigation/native';
 import firestone from '@react-native-firebase/firestore';
+import { Header } from '../components/Header';
 
 export function RegisterMember() {
 
@@ -44,6 +45,9 @@ export function RegisterMember() {
     }
   return (
     <VStack>
+        <Header 
+            title='Cadastra membro'
+        />
         <Input 
             placeholder='Nome Membro'
             mt={4}

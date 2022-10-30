@@ -9,6 +9,7 @@ import { Loading } from '../components/Loading';
 
 import { LarFirestoreDTO } from '../DTOs/LarFirestoreDTO';
 import { SnapchatLogo } from 'phosphor-react-native';
+import { Header } from '../components/Header';
 
 type RouteParams = {
   larId: string;
@@ -51,6 +52,9 @@ export function LarDetails() {
 
   return (
     <VStack>
+      <Header 
+        title='Detelhes Lar Salvação'
+      />
       <FlatList 
         data={lar}
         keyExtractor={item => item.id}

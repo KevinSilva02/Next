@@ -9,6 +9,7 @@ import { CardMember, MemberProps } from '../components/CardMember';
 import { Loading } from '../components/Loading'
 import { Button } from '../components/Button';
 import { ItemClick } from 'native-base/lib/typescript/components/composites/Typeahead/useTypeahead/types';
+import { Header } from '../components/Header';
 
 type RouteParams = {
   usersId: string;
@@ -74,13 +75,19 @@ export function MeuLar() {
 
   return (
     <VStack>
+      <Header 
+        title='Meu Lar Salvação'
+      />
       <FlatList 
         data={lar}
         keyExtractor={item => item.id}
         renderItem={({item}) => <HeaderLar data={item} />}
         showsVerticalScrollIndicator={false}
         contentContainerStyle={{paddingBottom: 100}}
-      />
+        />
+        <Text>
+          Lista de Membros: 
+        </Text>
       <FlatList 
         data={member}
         keyExtractor={item => item.id}
