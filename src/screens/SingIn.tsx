@@ -1,17 +1,16 @@
-import { Alert } from 'react-native';
-import { VStack, Image, useTheme, Icon } from 'native-base';
 import React, { useState } from 'react';
+import { Alert } from 'react-native';
+import { VStack, Image, useTheme, Icon, Text } from 'native-base';
+
 import { THEME } from '../styles/theme';
 
 import auth from '@react-native-firebase/auth';
-
-import { Envelope, Key } from 'phosphor-react-native';
-import { Input } from '../components/Input';
-import { Button } from '../components/Button';
 import { useNavigation } from '@react-navigation/native';
 
-import { AppRoutes } from '../routes/app.routes';
-import { SingUp } from './SingUp';
+import { Envelope, Key } from 'phosphor-react-native';
+
+import { Input } from '../components/Input';
+import { Button } from '../components/Button';
 
 export function SingIn() {
   const { colors } = useTheme();
@@ -80,17 +79,10 @@ export function SingIn() {
         onPress={handleSingIn}
         isLoading={isLoading}
       />
-
-      <Button 
-        title='Cadastre-se'
-        w="full"
-        mb={4}
-        bg="black"
-        borderWidth={1}
-        borderColor="blue"
-        onPress={handleCadastre}
-        isLoading={isLoading}
-      />
+      
+      <Text alignItems="center" color='white' onPress={handleCadastre} mt={30}>
+        Não possui uma conta? <Text>Cadastre-se</Text>
+      </Text>
 
     </VStack>
   );

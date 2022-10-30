@@ -4,4 +4,5 @@ export type UserFirestoreDTO = {
     usuario: string;
     tipo: "Lider" | "Membro";
     email: string;
+    lar: string;
 }

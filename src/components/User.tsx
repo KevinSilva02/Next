@@ -5,6 +5,7 @@ export type UserProps = {
     usuario: string;
     email: string;
     tipo: 'Lider' | 'Membro';
+    lar: string;
 }
 
 type Props = IPressableProps & {

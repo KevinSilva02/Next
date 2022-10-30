@@ -1,18 +1,23 @@
 import { HStack, useTheme, VStack, Text, Pressable, IPressableProps } from 'native-base';
 import { Button } from './Button';
 import { useNavigation } from '@react-navigation/native';
-export type EventProps = {
+
+export type LarProps = {
   id: string;
   title: string;
-  date: string;
-  description: string;
+  nameLider: string;
+  nameVice: string;
+  nameAnfitriao: string;
+  endereco: string;
+  telefone: string;
+  dataNascimento: string;
 }
 
 type Props = IPressableProps & {
-    data: EventProps;
+    data: LarProps;
 }
 
-export function Event({data, ...rest}:Props) {
+export function CardLarSalvacao({data, ...rest}:Props) {
   const { colors } = useTheme();
   const navigation = useNavigation();
 
@@ -24,9 +29,6 @@ export function Event({data, ...rest}:Props) {
         <HStack alignItems="center" mb={4}  justifyContent="space-between">
             <Text ml={2} color="gray.300" fontSize="sm" textTransform="uppercase">
                 {data.title}
-            </Text>
-            <Text>
-              {data.date}
             </Text>
             
         </HStack>

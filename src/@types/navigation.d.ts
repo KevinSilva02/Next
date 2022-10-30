@@ -3,17 +3,13 @@ export declare global {
         interface RootParamList {
             home: { usersId: string};
             singUp: undefined;
-            checkIn: { usersId: string };
-            events: { usersId: string;};  
-            eventAdm: undefined;
-            homeAdm: undefined;
-            newEvent: undefined;
-            newReserva: {eventoId: string};
-            Relatorio: { eventoId };
-            app: { usersId: string }
-            index: {usersId: string}
-            eventoDetails: {eventoId: string}
-            eventoRelatorio: undefined;
+            larSalvacao: { usersId: string;};  
+            newLar: undefined;
+            newMember: undefined;
+            app: { usersId: string };
+            index: {usersId: string};
+            larDetails: {larId: string};
+            meuLar: {usersId: string};
         }
     }
 }

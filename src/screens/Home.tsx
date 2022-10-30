@@ -1,14 +1,17 @@
 import React, { useEffect, useState } from 'react';
-import { Linking, Alert } from 'react-native';
+import { Alert } from 'react-native';
 import { HStack, IconButton, useTheme, VStack, Image, FlatList, Text, Center} from 'native-base';
+
 import { Card } from '../components/Card';
 import { User, UserProps } from '../components/User';
+import { Loading } from '../components/Loading';
+
 import { ChatTeardropText, SignOut, Wheelchair } from 'phosphor-react-native';
-import colors from 'native-base/lib/typescript/theme/base/colors';
+
 import auth, { firebase, FirebaseAuthTypes } from '@react-native-firebase/auth';
 import firestone from '@react-native-firebase/firestore';
 import { useNavigation } from '@react-navigation/native';
-import { Loading } from '../components/Loading';
+
 import { UserFirestoreDTO } from '../DTOs/UserFirestoreDTO';
 
 
@@ -37,18 +40,21 @@ export function Home() {
         .where('email', '==', email)
         .onSnapshot(snapshot =>{
             const data = snapshot.docs.map(doc => {
-                const { usuario, tipo, email } = doc.data();
+                const { usuario, tipo, email, lar } = doc.data();
 
                 return {
                     id: doc.id,
                     usuario,
                     email,
-                    tipo
+                    tipo,
+                    lar
                 }
             })
             setUser(data)
             setIsLoading(false)
+            
         });
+
     })
 
     function handleLogOut(){
@@ -61,21 +67,13 @@ export function Home() {
         )
     }
 
-    function handleIngresso(){
-        Linking.openURL('https://linktr.ee/jogosmortaislpv');
-    }
-
-    function handleCheckIn(){
-        navigation.navigate('checkIn');
+    function handleMeuLar(usersId: string){
+        navigation.navigate('meuLar', { usersId });
     }
 
     function handleEvent(usersId: string){
-        navigation.navigate('events', { usersId });
+        navigation.navigate('larSalvacao', { usersId });
     }
-    function handleRelatorio(){
-        navigation.navigate('Relatorio');
-    }
-
 
     return (
     <VStack flex={1} pb={6} bg="gray.600" alignItems="center">
@@ -98,11 +96,12 @@ export function Home() {
             />
         </HStack>
         <HStack alignItems="center" >
+            
             <FlatList
                   data={user}
                   keyExtractor={item => item.id}
-                  renderItem={({item}) => <Card data={item} title='INGRESSO'
-                  onPress={handleIngresso}
+                  renderItem={({item}) => <Card data={item} title='Lares de Salvacao'
+                  onPress={()=> handleEvent(item.id)}
                   mt={10}/>}
                   showsVerticalScrollIndicator={false}
                   contentContainerStyle={{paddingBottom: 100}}
@@ -110,8 +109,8 @@ export function Home() {
             <FlatList
                   data={user}
                   keyExtractor={item => item.id}
-                  renderItem={({item}) => <Card data={item} title='Eventos'
-                  onPress={()=> handleEvent(item.id)}
+                  renderItem={({item}) => <Card data={item} title='Meu lar de salvacao'
+                  onPress={()=> handleMeuLar(item.lar)}
                   mt={10}/>}
                   showsVerticalScrollIndicator={false}
                   contentContainerStyle={{paddingBottom: 100}}

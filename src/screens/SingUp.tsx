@@ -1,12 +1,14 @@
 import React, { useState } from 'react';
 import { Alert } from 'react-native';
 import { VStack, Image, useTheme, Icon } from 'native-base';
+
 import { THEME } from '../styles/theme';
 
 import auth, { FirebaseAuthTypes } from '@react-native-firebase/auth';
 import firestore from '@react-native-firebase/firestore';
 
 import { Envelope, Key, User } from 'phosphor-react-native';
+
 import { Input } from '../components/Input';
 import { Button } from '../components/Button';
 
@@ -16,6 +18,7 @@ export function SingUp() {
     const [usuario, setUsuario] = useState('');
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
+    const [lar, setLar] = useState('');
 
     function handleSingUp(){
         
@@ -45,7 +48,9 @@ export function SingUp() {
         .add({
             usuario, 
             email,
+            lar,
             tipo: 'Membro'
+
         })
         .catch((error) => {
             console.log(error);
@@ -64,6 +69,12 @@ export function SingUp() {
             placeholder="Nome"
             InputLeftElement={<Icon as={<User color={colors.gray[500]} /> } ml={4} />}
             onChangeText={setUsuario}
+        />
+        <Input 
+            mb={4}
+            placeholder="Nome Lar de Salvação"
+            InputLeftElement={<Icon as={<User color={colors.gray[500]} /> } ml={4} />}
+            onChangeText={setLar}
         />
         <Input 
             mb={4}
