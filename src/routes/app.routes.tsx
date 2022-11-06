@@ -8,6 +8,7 @@ import { LarDetails } from "../screens/LarDetails";
 import { RegisterMember } from "../screens/RegisterMember";
 import { RegisterRelatorio } from "../screens/RegisterRelatorio";
 import { Relatorio } from "../screens/Relatorio";
+import { RelatorioDetails } from "../screens/RelatorioDetails";
 
 const { Navigator, Screen } = createNativeStackNavigator();
 
@@ -22,6 +23,7 @@ export function AppRoutes() {
       <Screen name="newMember" component={RegisterMember} />
       <Screen name="newRelatorio" component={RegisterRelatorio} />
       <Screen name="relatorio" component={Relatorio} />
+      <Screen name="relatorioDetails" component={RelatorioDetails} />
     </Navigator>
     
   );

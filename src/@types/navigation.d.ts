@@ -9,8 +9,9 @@ export declare global {
             newRelatorio: { title: string};
             app: { usersId: string };
             index: {usersId: string};
-            larDetails: {larId: string};
+            larDetails: {larId: string, tipoUser: string};
             meuLar: {usersId: string};
+            relatorioDetails: {Id: string};
             relatorio: {title: string, usersId: string};
         }
     }

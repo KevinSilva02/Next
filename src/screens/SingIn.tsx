@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { Alert } from 'react-native';
-import { VStack, Image, useTheme, Icon, Text } from 'native-base';
+import { VStack, Image, useTheme, Icon, Text, useToast } from 'native-base';
 
 import { THEME } from '../styles/theme';
 
@@ -15,6 +15,7 @@ import { Button } from '../components/Button';
 export function SingIn() {
   const { colors } = useTheme();
   const navigation = useNavigation();
+  const toast = useToast();
 
   const [isLoading, setIsLoading] = useState(false);
   const [email, setEmail] = useState('');
@@ -23,7 +24,11 @@ export function SingIn() {
   function handleSingIn(){
 
     if(!email || !password){
-      return Alert.alert('Entrar', 'Informe e-mail e senha');
+      return toast.show({
+        title:'Informe email e senha',
+        placement: 'top',
+        bgColor: 'red.500'
+    })
     }
     setIsLoading(true);
 
@@ -34,16 +39,32 @@ export function SingIn() {
       setIsLoading(false);
 
       if (error.code === 'auth/invalid-email'){
-        return Alert.alert('Entrar', 'E-mail ou senha invalido');
+        return toast.show({
+                title:'Email ou senha invalido',
+                placement: 'top',
+                bgColor: 'red.500'
+            })
       }
       if (error.code === 'auth/user-not-found'){
-        return Alert.alert('Entrar', 'Usuario não cadastrado');
+        return toast.show({
+          title:'Usuario não cadastrado',
+          placement: 'top',
+          bgColor: 'red.500'
+      });
       }
       if (error.code === 'auth/wrong-password'){
-        return Alert.alert('Entrar', 'E-mail ou senha invalido');
+        return toast.show({
+                title:'Email ou senha invalido',
+                placement: 'top',
+                bgColor: 'red.500'
+            })
       }
 
-      return Alert.alert('Entrar', 'Não foi possivel acessar');
+      return toast.show({
+        title:'Não foi possivel acessar!',
+        placement: 'top',
+        bgColor: 'red.500'
+    })
     })
 
   }
@@ -54,7 +75,7 @@ export function SingIn() {
 
   return (
     <VStack flex={1} alignItems="center" bg="black" px={8} pt={24}>
-      <Image source={require('../assents/novo.png')} alt="next" mt={24} />
+      <Image source={require('../assets/logo.png')} alt="next" mt={24} />
 
       <Input 
         mt={24}

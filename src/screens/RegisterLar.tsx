@@ -1,6 +1,6 @@
 import React, {useState} from 'react';
 import { Alert } from 'react-native';
-import { VStack } from 'native-base';
+import { useToast, VStack } from 'native-base';
 
 import { useNavigation } from '@react-navigation/native';
 import firestore from '@react-native-firebase/firestore';
@@ -22,10 +22,15 @@ export function RegisterLar() {
   const [dataNascimento, setDataNascimento] = useState('');
 
   const navigation = useNavigation();
+  const toast = useToast();
 
   function handleNewEventRegister(){
-      if(!title || !nameLider || !nameVice || !nameAnfitriao || !endereco || !dataNascimento){
-        Alert.alert('Registrar', 'preencha todos os campos');
+      if(!title.trim() || !nameLider.trim() || !nameVice.trim() || !nameAnfitriao.trim() || !endereco.trim() || !dataNascimento.trim()){
+        return toast.show({
+          title:'Informe todos os campos!',
+          placement: 'top',
+          bgColor: 'red.500'
+      });
       } 
 
       setIsLoading(true)
@@ -42,13 +47,21 @@ export function RegisterLar() {
         dataNascimento
       })
       .then(()=>{
-        Alert.alert('Lar de Salvação', 'Lar de Salvação criado com sucesso');
+        toast.show({
+          title:'Lar de salvação criado com sucesso',
+          placement: 'top',
+          bgColor: 'green.500'
+      })
         navigation.goBack();
       })
       .catch(error => {
         console.log(error);
         setIsLoading(false);
-        return Alert.alert('Evento', 'Não foi possivel criar o Lar de Salvação')
+        return toast.show({
+          title:'Não foi possivel criar o lar de salvação',
+          placement: 'top',
+          bgColor: 'red.500'
+      })
       });
   }
 

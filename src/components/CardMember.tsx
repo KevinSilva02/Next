@@ -1,5 +1,5 @@
 import React from 'react';
-import { Pressable, IPressableProps, Text, VStack } from 'native-base';
+import { Pressable, IPressableProps, Text, HStack } from 'native-base';
 
 export type MemberProps = {
     id: string;
@@ -15,11 +15,25 @@ type Props = IPressableProps & {
 export function CardMember({data, ...rest}:Props) {
   return (
     <Pressable {...rest}>
-    <VStack>
+    <HStack 
+      bgColor="gray.400" 
+      w="full"
+      h={20}  
+      borderBottomWidth={3}
+      borderBottomColor="blue.500"
+      justifyContent="space-around"
+      alignItems="center"
+      rounded="sm"
+      mb={3}
+      p={4}
+    >
         <Text>
             {data.name}
         </Text>
-    </VStack>
+        <Text>
+            {data.telefone}
+        </Text>
+    </HStack>
     </Pressable>
   );
 }

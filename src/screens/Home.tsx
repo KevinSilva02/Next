@@ -6,7 +6,7 @@ import { Card } from '../components/Card';
 import { User, UserProps } from '../components/User';
 import { Loading } from '../components/Loading';
 
-import { ChatTeardropText, SignOut, Wheelchair } from 'phosphor-react-native';
+import { ChatTeardropText, SignOut, Wheelchair, HouseLine } from 'phosphor-react-native';
 
 import auth, { firebase, FirebaseAuthTypes } from '@react-native-firebase/auth';
 import firestone from '@react-native-firebase/firestore';
@@ -92,7 +92,7 @@ export function Home() {
         pb={5}
         px={6}
         >
-            <Image source={require('../assents/novo.png')} alt="next" mt={24} />
+            <Image source={require('../assets/logo.png')} alt="next" mt={24} />
             <IconButton 
                 icon={<SignOut size={26} color={colors.gray[300]} />}
                 mt={20}
@@ -104,9 +104,9 @@ export function Home() {
             <FlatList
                   data={user}
                   keyExtractor={item => item.id}
-                  renderItem={({item}) => <Card data={item} title='Lares de Salvacao'
+                  renderItem={({item}) => <Card data={item} title='Lares de Salvacao' 
                   onPress={()=> handleLaresSalvacao(item.id)}
-                  mt={10}/>}
+                  mt={10}/> }
                   showsVerticalScrollIndicator={false}
                   contentContainerStyle={{paddingBottom: 100}}
                 />

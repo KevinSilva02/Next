@@ -29,6 +29,10 @@ export function Relatorio() {
         navigation.navigate('newRelatorio', {title});
     }
 
+    function handleOpenRelatorioDetails(Id: string){
+        navigation.navigate('relatorioDetails', {Id})
+    }
+
     useEffect(()=>{
         
         firestone()
@@ -36,13 +40,13 @@ export function Relatorio() {
         .where('title', '==', title)
         .onSnapshot(snapshot=>{
             const data = snapshot.docs.map(doc=>{
-                const { title, dataLar, visitantes, quantidadeJovens, quantidadeCriancas } = doc.data();
+                const { title, dataLar, visitante, quantidadeJovens, quantidadeCriancas } = doc.data();
 
                 return{
                     id: doc.id,
                     title,
                     dataLar,
-                    visitantes,
+                    visitante,
                     quantidadeCriancas,
                     quantidadeJovens
                 }
@@ -77,7 +81,7 @@ export function Relatorio() {
         <FlatList 
             data={relatorio}
             keyExtractor={item => item.id}
-            renderItem={({item})=> <CardRelatorio data={item} />}
+            renderItem={({item})=> <CardRelatorio data={item} onPress={()=>handleOpenRelatorioDetails(item.id)} />}
             showsVerticalScrollIndicator={false}
             contentContainerStyle={{paddingBottom: 100}}
             ListEmptyComponent={()=>(

@@ -1,13 +1,13 @@
 import React from 'react';
-import { IPressableProps, Pressable, Text, VStack } from 'native-base';
+import { IPressableProps, Pressable, Text, HStack } from 'native-base';
 
 export type RelatorioProps = {
     id: string;
     title: string;
     dataLar: string;
-    quantidadeJovens: number;
-    quantidadeCriancas: number;
-    visitantes: number;
+    quantidadeJovens: string;
+    quantidadeCriancas: string;
+    visitante: string;
 }
 
 type Props = IPressableProps & {
@@ -17,23 +17,25 @@ type Props = IPressableProps & {
 export function CardRelatorio({data, ...rest}:Props) {
   return (
     <Pressable {...rest}>    
-    <VStack>
+    <HStack
+        bgColor="gray.400" 
+        w="full"
+        h={20}  
+        borderBottomWidth={3}
+        borderBottomColor="blue.500"
+        justifyContent="space-around"
+        alignItems="center"
+        rounded="sm"
+        mb={3}
+        p={4}
+    >
         <Text>
-            Nome Lar: {data.title}
+            {data.title}
         </Text>
         <Text>
-            Data do Lar: {data.dataLar}
+            Data: {data.dataLar}
         </Text>
-        <Text>
-            Nº joves: {data.quantidadeJovens}
-        </Text>
-        <Text>
-            Nº criancas: {data.quantidadeCriancas}
-        </Text>
-        <Text>
-            Nº Visitantes: {data.visitantes}
-        </Text>
-    </VStack>
+    </HStack>
     </Pressable>
   );
 }

@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { Alert } from 'react-native';
-import { VStack, Image, useTheme, Icon } from 'native-base';
+import { VStack, Image, useTheme, Icon, useToast } from 'native-base';
 
 import { THEME } from '../styles/theme';
 
@@ -14,16 +14,22 @@ import { Button } from '../components/Button';
 
 export function SingUp() {
     const { colors } = useTheme();
+    const toast = useToast();
     const [isLoading, setIsLoading] = useState(false);
     const [usuario, setUsuario] = useState('');
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
     const [lar, setLar] = useState('');
+    const [register, setRegister] = useState(false)
 
     function handleSingUp(){
         
-        if(!usuario || !email || !password){
-            return Alert.alert('Cadastro', 'Informe nome, e-mail e senha');
+        if(!usuario.trim() || !email.trim() || !password.trim()){
+            return toast.show({
+                title:'Informe todos os campos',
+                placement: 'top',
+                bgColor: 'red.500'
+            })
         }
 
         auth()
@@ -33,35 +39,48 @@ export function SingUp() {
             setIsLoading(false)
 
             if(error.code === 'auth/invalid-email'){
-                return Alert.alert('Cadastro', 'E-mail invalido')
+                return toast.show({
+                    title:'Email invalido',
+                    placement: 'top',
+                    bgColor: 'red.500'
+                })
             }
             if(error.code === 'auth/weak-password'){
-                return Alert.alert('Cadastro', 'Senha fraca')
+                return toast.show({
+                    title:'Senha Fraca',
+                    placement: 'top',
+                    bgColor: 'red.500'
+                })
             }
             if(error.code === 'auth/email-already-in-use'){
-                return Alert.alert('Cadastro', "E-mail já cadastrado");
+                return toast.show({
+                    title:'Email já cadastrado',
+                    placement: 'top',
+                    bgColor: 'red.500'
+                })
             }
         })
-        
-        firestore()
-        .collection('users')
-        .add({
-            usuario, 
-            email,
-            lar,
-            tipo: 'Membro'
-
+        .then(()=>{
+            firestore()
+            .collection('users')
+            .add({
+                usuario, 
+                email,
+                lar,
+                tipo: 'Membro'
+    
+            })
+            .catch((error) => {
+                console.log(error);
+            })
         })
-        .catch((error) => {
-            console.log(error);
-        })
-        
+            
     }
 
 
     return (
     <VStack flex={1} alignItems="center" bg="black" px={8} pt={24}>
-        <Image source={require('../assents/novo.png')} alt="next" mt={24} />
+        <Image source={require('../assets/logo.png')} alt="next" mt={24} />
 
         <Input 
             mb={4}

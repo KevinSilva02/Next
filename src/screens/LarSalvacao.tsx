@@ -32,11 +32,13 @@ export function LarSalvacao() {
   
   const { usersId } = route.params as RouteParams;
 
+  const tipoUser = user.tipo;
+
   function handleNewLarSalvacao(){
     navigation.navigate('newLar')
   }
-  function handleLarDetails(larId: string){
-    navigation.navigate('larDetails', {larId});
+  function handleLarDetails(larId: string, tipoUser: string){
+    navigation.navigate('larDetails', {larId, tipoUser});
   }
   useEffect(() => {
     setIsLoading(true);
@@ -95,14 +97,14 @@ export function LarSalvacao() {
             <FlatList
               data={lar}
               keyExtractor={item => item.id}
-              renderItem={({item}) => <CardLarSalvacao data={item} onPress={()=>handleLarDetails(item.title)} />}
+              renderItem={({item}) => <CardLarSalvacao data={item} onPress={()=>handleLarDetails(item.title,tipoUser)} />}
               showsVerticalScrollIndicator={false}
               contentContainerStyle={{paddingBottom: 100}}
               ListEmptyComponent={()=> (
                 <Center>
                   <ChatTeardropText color={colors.gray[300]} size={40} />
                   <Text color="gray.300" fontSize="xl" mt={6} textAlign="center">
-                      Não existe Lar de Salvação criado
+                      Não existe Lar de Salvação para exibir
                   </Text>
                 </Center>
               )}

@@ -55,7 +55,7 @@ export function MeuLar() {
   },[])
 
   useEffect(()=>{
-    firestone()
+    firestone() 
     .collection('Member')
     .where('lar', '==', usersId)
     .onSnapshot(snapshot=>{
@@ -73,11 +73,16 @@ export function MeuLar() {
     })
   },[])
 
+  
+
   return (
     <VStack>
       <Header 
         title='Meu Lar Salvação'
       />
+      <Text>
+        Lista de Membros
+      </Text>
       <FlatList 
         data={lar}
         keyExtractor={item => item.id}
@@ -85,9 +90,7 @@ export function MeuLar() {
         showsVerticalScrollIndicator={false}
         contentContainerStyle={{paddingBottom: 100}}
         />
-        <Text>
-          Lista de Membros: 
-        </Text>
+        
       <FlatList 
         data={member}
         keyExtractor={item => item.id}

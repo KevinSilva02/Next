@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { Alert } from 'react-native';
-import { VStack } from 'native-base';
+import { useToast, VStack } from 'native-base';
 
 import { Loading } from '../components/Loading';
 import { Input } from '../components/Input';
@@ -18,10 +18,15 @@ export function RegisterMember() {
     const [lar, setLar] = useState('');
 
     const navigation = useNavigation();
+    const toast = useToast();
 
     function handleCreateMember(){
         if(!name || !telefone){
-            Alert.alert('Membro', 'Preencha todos  os campos')
+            toast.show({
+                title:'Informe o nome e telefone',
+                placement: 'top',
+                bgColor: 'red.500'
+            })
         }
 
         setIsLoading(true)
@@ -34,13 +39,21 @@ export function RegisterMember() {
             lar
         })
         .then(()=>{
-            Alert.alert('Membro', 'Membro cadastrado com sucesso');
+            toast.show({
+                title: 'Membro adicionado com sucesso',
+                placement: 'top',
+                bgColor: 'green.500'
+            })
             navigation.goBack();
         })
         .catch(erro => {
             console.log(erro);
             setIsLoading(false)
-            return Alert.alert('Membro', 'Não foi possivel cadastrar o membro')
+            return toast.show({
+                title:'Não foi possivel cadastra o membro',
+                placement: 'top',
+                bgColor: 'red.500'
+            })
         })
     }
   return (

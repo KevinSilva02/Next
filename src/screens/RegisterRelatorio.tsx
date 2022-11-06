@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { VStack } from 'native-base';
+import { useToast, VStack } from 'native-base';
 
 import { Input } from '../components/Input';
 
@@ -17,16 +17,16 @@ export function RegisterRelatorio() {
 
   const routes = useRoute();
   const navigation = useNavigation();
+  const toast = useToast();
 
   const { title } = routes.params as RouteParams;
 
+
   const [dataLar, setDataLar] = useState('');
   const [visitante, setVisitante] = useState('');
-  const [quantidaJovens, setQuantidadeJovens] = useState('');
-  const [quantidaCriacas, setQuantidadeCriancas] = useState('');
-
-  console.log(title)
-
+  const [quantidadeJovens, setQuantidadeJovens] = useState('');
+  const [quantidadeCriancas, setQuantidadeCriancas] = useState('');
+  
   function handleCreateRelatorio(){
 
     firestone()
@@ -34,12 +34,16 @@ export function RegisterRelatorio() {
     .add({
       title,
       dataLar,
-      quantidaJovens,
-      quantidaCriacas,
+      quantidadeJovens,
+      quantidadeCriancas,
       visitante
     })
     .then(()=>{
-      Alert.alert('Relatorio', 'Relatorio Criado com Sucesso')
+      toast.show({
+        title: 'Relatorio criado com sucesso!',
+        placement: 'top',
+        bgColor: 'green.500'
+      })
       navigation.goBack();
     })
 
