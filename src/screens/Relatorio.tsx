@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { Center, FlatList, VStack, Text, Select } from 'native-base';
+import { Center, FlatList, VStack, Text } from 'native-base';
 
 import firestone from '@react-native-firebase/firestore';
 import { useNavigation, useRoute } from '@react-navigation/native';
@@ -8,6 +8,7 @@ import { CardRelatorio, RelatorioProps } from '../components/CardRelatorio';
 import { Button } from '../components/Button';
 import { Header } from '../components/Header';
 import { UserProps } from '../components/Card';
+import { Loading } from '../components/Loading';
 
 import { UserFirestoreDTO } from '../DTOs/UserFirestoreDTO';
 
@@ -21,6 +22,7 @@ export function Relatorio() {
     const navigation = useNavigation();
     const routes = useRoute();
 
+    const [isLoading, setIsLoading] = useState(true)
     const { title, usersId } = routes.params as RouteParams;
     const [relatorio, setRelatorio] = useState<RelatorioProps[]>([])
     const [users, setUsers] = useState<UserProps>({} as UserProps)
@@ -35,6 +37,7 @@ export function Relatorio() {
 
     useEffect(()=>{
         
+        setIsLoading(true)
         firestone()
         .collection('Relatorio')
         .where('title', '==', title)
@@ -70,11 +73,16 @@ export function Relatorio() {
               email,  
               tipo                   
             });
+            setIsLoading(false)
           })
       }, [])
 
+      if(isLoading){
+        return <Loading />
+      }
+
   return (
-    <VStack>
+    <VStack flex={1} pb={6} >
         <Header 
             title='Relatorios'
         />
@@ -96,14 +104,7 @@ export function Relatorio() {
             title='Criar Relatório'
             onPress={()=> handleNewRelatorio(title)}
         />
-        {
-            users.tipo === 'Lider' &&
-            <Button 
-                mt={6}
-                title='Ver Todos Relatórios'
-                onPress={()=> handleNewRelatorio(title)}
-            />
-        }
+        
     </VStack>
   );
 }

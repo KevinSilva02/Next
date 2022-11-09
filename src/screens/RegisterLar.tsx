@@ -66,50 +66,53 @@ export function RegisterLar() {
   }
 
   return (
-    <VStack flex={1} p={6} bg='black'>
+    <VStack flex={1} p={6} bg='gray.900'>
       <Header title='Criar Lar de Salvação' />
 
-      <Input 
-        placeholder='Nome Lar de salvação'
-        mt={4}
-        onChangeText={setTitle}
-      />
-      <Input 
-        placeholder='Nome do Lider'
-        mt={4}
-        onChangeText={setNameLider}
-      />
-      <Input 
-        placeholder='Nome do Vice lider'
-        mt={4}
-        onChangeText={setNameVice}
-      />
-      <Input 
-        placeholder='Nome do Anfitrião'
-        mt={4}
-        onChangeText={setNameAnfitriao}
-      />
-      <Input 
-        placeholder='Endereço do anfitrião'
-        mt={4}
-        onChangeText={setEndereco}
-      />
-      <Input 
-        placeholder='Telefone anfitrião'
-        mt={4}
-        onChangeText={setTelefone}
-      />
-      <Input 
-        placeholder='Data de Nascimento do anfitrião'
-        mt={4}
-        onChangeText={setDataNascimento}
-      />
+      <VStack flex={1}>
+
+        <Input 
+          placeholder='Nome Lar de salvação'
+          mt={4}
+          onChangeText={setTitle}
+        />
+        <Input 
+          placeholder='Nome do Lider'
+          mt={4}
+          onChangeText={setNameLider}
+        />
+        <Input 
+          placeholder='Nome do Vice lider'
+          mt={4}
+          onChangeText={setNameVice}
+        />
+        <Input 
+          placeholder='Nome do Anfitrião'
+          mt={4}
+          onChangeText={setNameAnfitriao}
+        />
+        <Input 
+          placeholder='Endereço do anfitrião'
+          mt={4}
+          onChangeText={setEndereco}
+        />
+        <Input 
+          placeholder='Telefone anfitrião'
+          mt={4}
+          onChangeText={setTelefone}
+        />
+        <Input 
+          placeholder='Data de Nascimento do anfitrião'
+          mt={4}
+          onChangeText={setDataNascimento}
+        />
+      </VStack>
 
       <Button 
         title='Criar'
         mt={5}
-        isLoading={isLoading}
         onPress={handleNewEventRegister}
+        isLoading={isLoading}
       />
     </VStack>
   );

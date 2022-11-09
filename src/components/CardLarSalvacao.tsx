@@ -1,5 +1,5 @@
 import { HStack, useTheme, VStack, Text, Pressable, IPressableProps } from 'native-base';
-import { Button } from './Button';
+import { Button } from './ButtonHome';
 import { useNavigation } from '@react-navigation/native';
 
 export type LarProps = {

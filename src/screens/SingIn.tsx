@@ -10,7 +10,7 @@ import { useNavigation } from '@react-navigation/native';
 import { Envelope, Key } from 'phosphor-react-native';
 
 import { Input } from '../components/Input';
-import { Button } from '../components/Button';
+import { Button } from '../components/ButtonHome';
 
 export function SingIn() {
   const { colors } = useTheme();
@@ -75,7 +75,7 @@ export function SingIn() {
 
   return (
     <VStack flex={1} alignItems="center" bg="black" px={8} pt={24}>
-      <Image source={require('../assets/logo.png')} alt="next" mt={24} />
+      
 
       <Input 
         mt={24}

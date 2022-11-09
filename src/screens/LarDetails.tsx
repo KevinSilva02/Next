@@ -7,16 +7,12 @@ import firestone from '@react-native-firebase/firestore';
 import { HeaderLar, HeaderProps } from '../components/HeaderLar';
 import { Loading } from '../components/Loading';
 import { CardMember, MemberProps } from '../components/CardMember';
-
-import { LarFirestoreDTO } from '../DTOs/LarFirestoreDTO';
-import { SnapchatLogo } from 'phosphor-react-native';
 import { Header } from '../components/Header';
 
 type RouteParams = {
   larId: string;
   tipoUser: string;
 }
-
 
 export function LarDetails() {
   
@@ -29,6 +25,8 @@ export function LarDetails() {
   const [member, setMember] = useState<MemberProps[]>([]);
 
   useEffect(()=>{
+    setIsLoading(true)
+
     firestone()
     .collection('LarSalvacao')
     .where('title', '==', larId)
@@ -48,9 +46,10 @@ export function LarDetails() {
         }
       })
       setLar(data)
-      setIsLoading(false)
+      
     })
     
+    setIsLoading(true)
     firestone()
     .collection('Member')
     .where('lar', '==', larId)
@@ -66,13 +65,16 @@ export function LarDetails() {
         }
       })
       setMember(data)
+      setIsLoading(false)
     })
-  
-
   },[])
 
+  if(isLoading){
+    return <Loading />
+  }
+
   return (
-    <VStack>
+    <VStack flex={1} bg='gray.900'>
       <Header 
         title='Detelhes Lar Salvação'
       />
@@ -86,21 +88,21 @@ export function LarDetails() {
       {
         tipoUser === 'Lider' && 
         <VStack>
-          <Text>
+          <Text textAlign='center' fontSize='md' >
             Lista de Menbros
           </Text>
           <FlatList 
-          data={member}
-          keyExtractor={item => item.id}
-          renderItem={({item}) => <CardMember data={item} />}
-          showsVerticalScrollIndicator={false}
-          contentContainerStyle={{paddingBottom: 100}}
-          ListEmptyComponent={()=>(
-            <Center>
-              <Text color='gray.300' fontSize='xl' mt={6} textAlign="center" >
-                Não existe membros cadastrado!
-              </Text>
-            </Center>
+            data={member}
+            keyExtractor={item => item.id}
+            renderItem={({item}) => <CardMember data={item} />}
+            showsVerticalScrollIndicator={false}
+            contentContainerStyle={{paddingBottom: 100}}
+            ListEmptyComponent={()=>(
+              <Center>
+                <Text color='gray.300' fontSize='xl' mt={6} textAlign="center" >
+                  Não existe membros cadastrado!
+                </Text>
+              </Center>
           )}
   
         />

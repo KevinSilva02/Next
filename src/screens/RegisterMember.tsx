@@ -4,7 +4,7 @@ import { useToast, VStack } from 'native-base';
 
 import { Loading } from '../components/Loading';
 import { Input } from '../components/Input';
-import { Button } from '../components/Button';
+import { Button } from '../components/ButtonHome';
 
 import { useNavigation } from '@react-navigation/native';
 import firestone from '@react-native-firebase/firestore';

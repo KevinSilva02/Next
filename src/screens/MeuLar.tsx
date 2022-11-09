@@ -76,37 +76,38 @@ export function MeuLar() {
   
 
   return (
-    <VStack>
-      <Header 
+    <VStack flex={1} pb={6} bg='gray.900' >
+      <Header
         title='Meu Lar Salvação'
       />
-      <Text>
-        Lista de Membros
-      </Text>
+      <VStack flex={1} px={6} mt={5}>
       <FlatList 
         data={lar}
         keyExtractor={item => item.id}
         renderItem={({item}) => <HeaderLar data={item} />}
         showsVerticalScrollIndicator={false}
-        contentContainerStyle={{paddingBottom: 100}}
+        contentContainerStyle={{}}
         />
-        
-      <FlatList 
-        data={member}
-        keyExtractor={item => item.id}
-        renderItem={({item}) => <CardMember data={item} />}
-        showsVerticalScrollIndicator={false}
-        contentContainerStyle={{paddingBottom: 100}}
-        ListEmptyComponent={()=>(
-          <Center>
-            <Text color='gray.300' fontSize='xl' mt={6} textAlign="center" >
-              Não existe membros cadastrado!
-            </Text>
-          </Center>
-        )}
+        <Text textAlign="center" fontSize="md" >
+          Lista de Membros
+        </Text>
+        <FlatList 
+          data={member}
+          keyExtractor={item => item.id}
+          renderItem={({item}) => <CardMember data={item} />}
+          showsVerticalScrollIndicator={false}
+          contentContainerStyle={{paddingBottom: 100}}
+          ListEmptyComponent={()=>(
+            <Center>
+              <Text color='gray.300' fontSize='xl' mt={6} textAlign="center" >
+                Não existe membros cadastrado!
+              </Text>
+            </Center>
+          )}
 
-      />
-      <Button title='Cadastra Membro' onPress={handleNewMember} />
+        />
+        <Button title='Cadastra Membro' onPress={handleNewMember} />
+      </VStack>
     </VStack>
   );
 }

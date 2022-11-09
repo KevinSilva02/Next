@@ -1,10 +1,7 @@
 import React, { useState } from 'react';
-import { Alert } from 'react-native';
 import { VStack, Image, useTheme, Icon, useToast } from 'native-base';
 
-import { THEME } from '../styles/theme';
-
-import auth, { FirebaseAuthTypes } from '@react-native-firebase/auth';
+import auth from '@react-native-firebase/auth';
 import firestore from '@react-native-firebase/firestore';
 
 import { Envelope, Key, User } from 'phosphor-react-native';
@@ -20,7 +17,7 @@ export function SingUp() {
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
     const [lar, setLar] = useState('');
-    const [register, setRegister] = useState(false)
+    const [register, setRegister] = useState(true)
 
     function handleSingUp(){
         
@@ -37,50 +34,57 @@ export function SingUp() {
         .catch((error) => {
             console.log(error);
             setIsLoading(false)
+            setRegister(false)
 
             if(error.code === 'auth/invalid-email'){
-                return toast.show({
-                    title:'Email invalido',
-                    placement: 'top',
-                    bgColor: 'red.500'
-                })
+                    toast.show({
+                        title:'Email invalido',
+                        placement: 'top',
+                        bgColor: 'red.500'
+                    })
+
+                    setRegister(false)
             }
             if(error.code === 'auth/weak-password'){
-                return toast.show({
+                toast.show({
                     title:'Senha Fraca',
                     placement: 'top',
                     bgColor: 'red.500'
                 })
+                setRegister(false)
             }
             if(error.code === 'auth/email-already-in-use'){
-                return toast.show({
+                toast.show({
                     title:'Email já cadastrado',
                     placement: 'top',
                     bgColor: 'red.500'
                 })
+                setRegister(false)
             }
         })
         .then(()=>{
-            firestore()
-            .collection('users')
-            .add({
-                usuario, 
-                email,
-                lar,
-                tipo: 'Membro'
-    
-            })
-            .catch((error) => {
-                console.log(error);
-            })
-        })
+            if(register){
+                console.log(register)
+                firestore()
+                .collection('users')
+                .add({
+                    usuario, 
+                    email,
+                    lar,
+                    tipo: 'Membro'
+                })
+                .catch((error) => {
+                    console.log(error);
+                })
+            }
+        })    
             
     }
 
 
     return (
     <VStack flex={1} alignItems="center" bg="black" px={8} pt={24}>
-        <Image source={require('../assets/logo.png')} alt="next" mt={24} />
+        
 
         <Input 
             mb={4}

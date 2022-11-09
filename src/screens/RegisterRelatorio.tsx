@@ -6,7 +6,7 @@ import { Input } from '../components/Input';
 import firestone from '@react-native-firebase/firestore';
 import { useNavigation, useRoute } from '@react-navigation/native';
 import { Alert } from 'react-native';
-import { Button } from '../components/Button';
+import { Button } from '../components/ButtonHome';
 import { Header } from '../components/Header';
 
 type RouteParams = {

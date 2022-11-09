@@ -1,27 +1,23 @@
 import React, { useEffect, useState } from 'react';
 import { Alert } from 'react-native';
-import { HStack, IconButton, useTheme, VStack, Image, FlatList, Text, Center} from 'native-base';
+import { HStack, IconButton, useTheme, VStack, Image, Text, Center, FlatList} from 'native-base';
 
-import { Card } from '../components/Card';
-import { User, UserProps } from '../components/User';
+import { UserProps } from '../components/User';
 import { Loading } from '../components/Loading';
+import { Button } from '../components/ButtonHome';
 
-import { ChatTeardropText, SignOut, Wheelchair, HouseLine } from 'phosphor-react-native';
+import {  SignOut } from 'phosphor-react-native';
 
 import auth, { firebase, FirebaseAuthTypes } from '@react-native-firebase/auth';
 import firestone from '@react-native-firebase/firestore';
 import { useNavigation } from '@react-navigation/native';
 
-import { UserFirestoreDTO } from '../DTOs/UserFirestoreDTO';
-
-
 export function Home() {
-
     const [isLoading, setIsLoading] = useState(true);
     const [user, setUser] = useState<UserProps[]>([]);
     const [email, setEmail] = useState('');
     const [ usuario, setUsuario] = useState<UserProps>({} as UserProps);
-   
+    
     const { colors } = useTheme();
     const navigation = useNavigation();
 
@@ -51,10 +47,9 @@ export function Home() {
                 }
             })
             setUser(data)
-            setIsLoading(false)
-            
+            return(subscriber)
         });
-
+        setIsLoading(false)
     })
 
     function handleLogOut(){
@@ -63,8 +58,7 @@ export function Home() {
         .catch(error => {
             console.log(error);
             return Alert.alert('Sair', 'Não foi possivel sair');
-        }
-        )
+        })
     }
 
     function handleMeuLar(usersId: string){
@@ -77,61 +71,62 @@ export function Home() {
 
     function handleRelatorio(title: string, usersId: string ){
         navigation.navigate('relatorio', {title, usersId});
+
     }
 
+    if(isLoading){
+        return <Loading />
+    }
+    
+
     return (
-    <VStack flex={1} pb={6} bg="gray.600" alignItems="center">
-        
+    <VStack flex={1} pb={7} bg="gray.900" >
         <HStack
-        w="full"
-        justifyContent="space-between"
-        alignItems="center"
-        justifyItems="center"
-        bg="black"
-        mt={-6}
-        pb={5}
-        px={6}
+            w="full"
+            justifyContent="space-between"
+            alignItems="center"
+            justifyItems="center"
+            bg="black"
+            mt={-6}
+            pb={5}
+            px={6}
         >
-            <Image source={require('../assets/logo.png')} alt="next" mt={24} />
+            <Text fontFamily="heading" fontSize={24} p={5} mt={20} >Lar Salvação</Text>
+            
             <IconButton 
                 icon={<SignOut size={26} color={colors.gray[300]} />}
                 mt={20}
                 onPress={handleLogOut}
             />
         </HStack>
-        <HStack alignItems="center" >
-            
-            <FlatList
-                  data={user}
-                  keyExtractor={item => item.id}
-                  renderItem={({item}) => <Card data={item} title='Lares de Salvacao' 
-                  onPress={()=> handleLaresSalvacao(item.id)}
-                  mt={10}/> }
-                  showsVerticalScrollIndicator={false}
-                  contentContainerStyle={{paddingBottom: 100}}
+        <VStack flex={1} >
+            <Center>
+                <FlatList 
+                    data={user}
+                    keyExtractor={(item) => item.id}
+                    renderItem={({item}) => <Button title='Lares de salvacao' data={item} onPress={()=> handleLaresSalvacao(item.id)} />}
+                    contentContainerStyle={{ padding: 20, marginTop: 5 }}
                 />
-            <FlatList
-                  data={user}
-                  keyExtractor={item => item.id}
-                  renderItem={({item}) => <Card data={item} title='Meu lar de salvacao'
-                  onPress={()=> handleMeuLar(item.lar)}
-                  mt={10}/>}
-                  showsVerticalScrollIndicator={false}
-                  contentContainerStyle={{paddingBottom: 100}}
+                <FlatList 
+                    data={user}
+                    keyExtractor={(item) => item.id}
+                    renderItem={({item}) => <Button title='Meu lar' data={item} onPress={()=>handleMeuLar(item.lar)}  />}
+                    contentContainerStyle={{padding: 20, marginTop: 5}}
                 />
-            
-        </HStack>
-        <HStack>
-            <FlatList
-                data={user}
-                keyExtractor={item => item.id}
-                renderItem={({item}) => <Card data={item} title='Relatórios'
-                onPress={()=> handleRelatorio(item.lar,item.id)}
-                mt={10}/>}
-                showsVerticalScrollIndicator={false}
-                contentContainerStyle={{paddingBottom: 100}}
+                <FlatList 
+                    data={user}
+                    keyExtractor={(item) => item.id}
+                    renderItem={({item}) => <Button title='Relatorios'  data={item} onPress={()=> handleRelatorio(item.lar,item.id)}  />}
+                    contentContainerStyle={{padding: 20, marginTop: 5}}
                 />
-        </HStack>
+            </Center>
+        </VStack>
+        <Center>
+            <Image source={require('../assets/logo_ieq.png')} alt="next"  w={12} h={12} />
+        </Center>    
+       
+
+        
     </VStack>
      
 )};

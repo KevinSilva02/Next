@@ -67,7 +67,7 @@ export function LarSalvacao() {
   }, []);
 
   useEffect(()=> {
-    setIsLoading(false)
+    setIsLoading(true)
     firestone()
       .collection<UserFirestoreDTO>('users')
       .doc(usersId)
@@ -81,11 +81,16 @@ export function LarSalvacao() {
           email,  
           tipo                   
         });
+        setIsLoading(false)
       })
   }, [])
+
+  if(isLoading){
+    return <Loading />
+  }
   
   return (
-    <VStack flex={1} pb={6} bg={'black'}>
+    <VStack flex={1} pb={6} bg='gray.900'>
       <HStack>
         <Header 
           title='Lares de Salvação'

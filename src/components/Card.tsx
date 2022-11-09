@@ -13,12 +13,13 @@ type Props = IPressableProps & {
 }
 
 
-export function Card({title, ...rest}: Props) {  
+export function Card({title,...rest}: Props) {  
   return (
     <ButtonNativeBase
-        h={150}
-        w={160}
-        ml={2}
+        width="full"
+        h={20}
+        rounded="sm"
+        
         {...rest}
     >
         {title}
